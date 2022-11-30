@@ -1,13 +1,12 @@
-// @flow
 import type {FragmentDefinitionNode, OperationDefinitionNode} from 'graphql';
-import type {OperationData} from './CodeExporter.js';
+import type {OperationData} from './CodeExporter';
 
-type stringBoolMap = {[string]: boolean};
+type stringBoolMap = {[k: string]: boolean};
 
 const operationDataByName = (
   graph: Array<OperationData>,
   name: string,
-): ?OperationData => {
+): OperationData | undefined => {
   return graph.find(operationData => operationData.name === name);
 };
 
@@ -16,7 +15,7 @@ function topologicalSortHelper(
   visited: stringBoolMap,
   temp: stringBoolMap,
   graph: Array<OperationData>,
-  result,
+  result: any,
 ) {
   temp[node.name] = true;
   var neighbors = node.fragmentDependencies;
@@ -52,8 +51,8 @@ function topologicalSortHelper(
 
 export default function toposort(graph: Array<OperationData>) {
   var result: Array<OperationData> = [];
-  var visited = {};
-  var temp = {};
+  var visited = {} as Record<string, any>;
+  var temp = {} as Record<string, any>;
   for (var node of graph) {
     if (!visited[node.name] && !temp[node.name]) {
       topologicalSortHelper(node, visited, temp, graph, result);

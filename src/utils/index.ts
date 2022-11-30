@@ -1,3 +1,5 @@
+import {OperationData} from '../CodeExporter';
+
 function distinct<T>(array: Array<T>): Array<T> {
   return [...new Set(array)];
 }
@@ -8,9 +10,8 @@ function isOperationNamed(operationData: OperationData): boolean {
   return unnamedSymbols.indexOf(operationData.name.trim()) === -1;
 }
 
-const findFirstNamedOperation = (
-  operations: Array<OperationData>,
-): ?OperationData => operations.find(isOperationNamed);
+const findFirstNamedOperation = (operations: Array<OperationData>) =>
+  operations.find(isOperationNamed);
 
 function addLeftWhitespace(s: string, padding: number): string {
   const pad = [...new Array(padding + 1)].join(' ');

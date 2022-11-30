@@ -1,4 +1,6 @@
-export default function getOptionCombinations(options) {
+import {Options, OptionValues} from '../../CodeExporter';
+
+export default function getOptionCombinations(options: Options) {
   const optionIds = options.map(option => option.id);
   const combinationCount = Math.pow(2, optionIds.length);
 
@@ -12,11 +14,11 @@ export default function getOptionCombinations(options) {
       const optionMap = optionIds.reduce((map, name, i) => {
         map[name] = Boolean(parseInt(booleanValues[i]));
         return map;
-      }, {});
+      }, {} as OptionValues);
 
       combinations.push(optionMap);
       return combinations;
     },
-    [],
+    [] as OptionValues[],
   );
 }

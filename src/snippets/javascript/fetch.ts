@@ -1,16 +1,14 @@
-// @flow
-
 import capitalizeFirstLetter from '../../utils/capitalizeFirstLetter';
-import commentsFactory from '../../utils/jsCommentsFactory.js';
+import commentsFactory from '../../utils/jsCommentsFactory';
 import {
   isOperationNamed,
   collapseExtraNewlines,
   addLeftWhitespace,
-} from '../../utils';
+} from '../../utils/index';
 
-import 'codemirror/mode/javascript/javascript';
+import 'codemirror';
 
-import type {Snippet, OperationData} from '../../index.js';
+import type {Snippet, OperationData} from '../../index';
 
 const snippetOptions = [
   {
@@ -116,9 +114,9 @@ function fetcherFunctions(operationDataList: Array<OperationData>): string {
 }
 
 function promiseFetcherInvocation(
-  getComment,
+  getComment: any,
   operationDataList: Array<OperationData>,
-  vars,
+  vars: any,
 ): string {
   return operationDataList
     .map(namedOperationData => {
@@ -174,9 +172,9 @@ ${addLeftWhitespace(headers, 8)}
 }
 
 function asyncFetcherInvocation(
-  getComment,
+  getComment: any,
   operationDataList: Array<OperationData>,
-  vars,
+  vars: any,
 ): string {
   return operationDataList
     .map(namedOperationData => {

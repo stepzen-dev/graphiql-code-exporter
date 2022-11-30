@@ -1,17 +1,16 @@
-// @flow
-
 import capitalizeFirstLetter from '../../utils/capitalizeFirstLetter';
-import commentsFactory from '../../utils/jsCommentsFactory.js';
+import commentsFactory from '../../utils/jsCommentsFactory';
 import {
   distinct,
   isOperationNamed,
   collapseExtraNewlines,
   addLeftWhitespace,
-} from '../../utils/index.js';
+} from '../../utils/index';
 
-import 'codemirror/mode/jsx/jsx';
+import 'codemirror';
 
-import type {Snippet, OperationData} from '../../index.js';
+import type {Snippet, OperationData} from '../../index';
+import { OperationTypeNode } from 'graphql';
 
 const comments = {
   setup: `This setup is only needed once per application`,
@@ -66,12 +65,12 @@ function operationComponentName(operationData: OperationData): string {
 }
 
 function mutationComponent(
-  getComment,
-  options,
-  element,
-  operationData,
-  heads,
-  vars,
+  getComment: any,
+  options: any,
+  element: any,
+  operationData: any,
+  heads: any,
+  vars: any,
 ) {
   const {params, variables} = operationVariables(operationData);
 
@@ -118,12 +117,12 @@ function mutationComponent(
 }
 
 const queryComponent = (
-  getComment,
-  options,
-  element,
-  operationData,
-  heads,
-  vars,
+  getComment: any,
+  options: any,
+  element: any,
+  operationData: any,
+  heads: any,
+  vars: any,
 ) => {
   const {params, props} = operationVariables(operationData);
   return `<Query
@@ -236,8 +235,8 @@ const apolloClient = new ApolloClient({
     );
 
     const imports = [
-      operationTypes.indexOf('query') > -1 ? 'Query' : null,
-      operationTypes.indexOf('mutation') > -1 ? 'Mutation' : null,
+      operationTypes.indexOf(OperationTypeNode.QUERY) > -1 ? 'Query' : null,
+      operationTypes.indexOf(OperationTypeNode.MUTATION) > -1 ? 'Mutation' : null,
       'ApolloProvider',
     ].filter(Boolean);
 
