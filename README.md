@@ -1,4 +1,8 @@
-# Code Exporter for GraphiQL
+# Code Exporter for GraphiQL 2
+
+This repo is an experiment in updating the [`graphiql-code-exporter`](https://github.com/OneGraph/graphiql-code-exporter) plugin up to [GraphiQL 2](https://github.com/graphql/graphiql/tree/main/packages/graphiql#plugins).
+
+🚧 _the content below is not up-to-date_ ⬇️
 
 A GraphiQL addon that generates ready-to-run code for your queries and mutations.  
 It provides a wide range of default snippets, but is also extendable with custom snippets.
