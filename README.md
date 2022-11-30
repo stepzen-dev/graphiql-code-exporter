@@ -113,7 +113,7 @@ export default class GraphiQLWithCodeExporter extends Component {
 What we call **snippet** here, is actually an object with 4 required keys.
 
 | Key                      | Type       | Description                                                                                                                                                       |
-|--------------------------|------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ------------------------ | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | name                     | _string_   | A name that is used to identify the snippet.                                                                                                                      |
 | language                 | _string_   | A language string that is used to group the snippets by language.                                                                                                 |
 | codeMirrorMode           | _string_   | A valid [CodeMirror mode](https://codemirror.net/mode/) used for syntax highlighting. Make sure to also require the mode (e.g. `import 'codemirror/mode/jsx/jsx'` |

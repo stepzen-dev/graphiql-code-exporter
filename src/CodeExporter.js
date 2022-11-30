@@ -631,7 +631,9 @@ class CodeExporter extends Component<Props, State> {
                     <a
                       rel="noopener noreferrer"
                       target="_blank"
-                      href={`https://codesandbox.io/s/${codesandboxResult.sandboxId}`}>
+                      href={`https://codesandbox.io/s/${
+                        codesandboxResult.sandboxId
+                      }`}>
                       Visit CodeSandbox
                     </a>
                   )}
