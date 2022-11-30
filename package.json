@@ -1,6 +1,6 @@
 {
   "name": "graphiql-code-exporter",
-  "version": "3.0.2",
+  "version": "4.0.0",
   "description": "Export working code snippets from GraphiQL queries",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -14,13 +14,13 @@
   "scripts": {
     "build:es": "babel -d es src --ignore __tests__",
     "build:lib": "cross-env BABEL_ENV=commonjs babel -d lib src --ignore __tests__",
-    "build": "yarn build:es && yarn build:lib && yarn build:flow:es && yarn build:flow:lib",
+    "build": "npm run build:es && npm run build:lib && npm run build:flow:es && npm run build:flow:lib",
     "build:clean": "rm -r ./lib && mkdir ./lib && rm -r ./es && mkdir ./es",
     "build:flow:es": "flow-copy-source -v -i '**/__tests__/**' src es",
     "build:flow:lib": "flow-copy-source -v -i '**/__tests__/**' src lib",
     "prettier": "prettier --write \"src/**/*.js\" \"docs/**/*.md\" README.md",
-    "release": "yarn build && npm publish",
-    "test": "yarn flow && cross-env BABEL_ENV=commonjs jest",
+    "release": "npm run build && npm publish",
+    "test": "npm run flow && cross-env BABEL_ENV=commonjs jest",
     "flow": "flow"
   },
   "prettier": {
@@ -58,7 +58,6 @@
     "copy-to-clipboard": "^3.0.8"
   },
   "devDependencies": {
-    "babel": "^6.5.2",
     "babel-cli": "^6.6.0",
     "babel-core": "^6.6.0",
     "babel-jest": "^19.0.0",
