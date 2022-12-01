@@ -7,8 +7,6 @@ import {
   addLeftWhitespace,
 } from '../../utils/index';
 
-import 'codemirror';
-
 import type {Snippet, OperationData} from '../../index';
 import { OperationTypeNode } from 'graphql';
 
@@ -159,6 +157,8 @@ const queryComponent = (
 const snippet: Snippet = {
   language: 'JavaScript',
   codeMirrorMode: 'jsx',
+  // @ts-ignore
+  codeMirrorImport: () => import('codemirror/mode/jsx/jsx'),
   name: 'react-apollo',
   options: [
     {

@@ -1,8 +1,6 @@
 import {Component, PropsWithChildren, PureComponent, ReactNode, MouseEvent, ErrorInfo} from 'react';
 import copy from 'copy-to-clipboard';
 import {parse, print} from 'graphql';
-// @ts-ignore
-import CodeMirror from 'codemirror';
 import toposort from './toposort';
 
 import type {
@@ -13,7 +11,6 @@ import type {
   OperationTypeNode,
   SelectionSetNode,
 } from 'graphql';
-import Code from './Code';
 
 function formatVariableName(name: string) {
   var uppercasePattern = /[A-Z]/g;
@@ -94,6 +91,7 @@ export type Snippet = {
   options: Options,
   language: string,
   codeMirrorMode: string,
+  codeMirrorImport?: () => Promise<void>,
   name: string,
   generate: (options: GenerateOptions) => string,
   generateCodesandboxFiles?: (options: GenerateOptions) => CodesandboxFiles,
@@ -340,9 +338,36 @@ type CodeDisplayProps = {code: string, mode: string, theme?: string};
 
 class CodeDisplay extends PureComponent<CodeDisplayProps, {}> {
   _node: HTMLDivElement | null | undefined;
-  editor: CodeMirror;
+  editor: any;
+
+  componentDidMount() {
+    // @ts-ignore
+    import('codemirror').then(module => {
+      const CodeMirror = module.default
+      this.editor = CodeMirror(this._node, {
+        value: this.props.code.trim(),
+        lineNumbers: false,
+        mode: this.props.mode,
+        readOnly: true,
+        theme: this.props.theme,
+      });
+    });
+  }
+
+  componentDidUpdate(prevProps: CodeDisplayProps) {
+    if (this.props.code !== prevProps.code) {
+      this.editor.setValue(this.props.code);
+    }
+    if (this.props.mode !== prevProps.mode) {
+      this.editor.setOption('mode', this.props.mode);
+    }
+    if (this.props.theme !== prevProps.theme) {
+      this.editor.setOption('theme', this.props.theme);
+    }
+  }
+
   render() {
-    return (<Code code={this.props.code}/>);
+    return <div ref={ref => (this._node = ref)} />;
   }
 }
 
@@ -387,6 +412,7 @@ class CodeExporter extends Component<Props, State> {
 
   setSnippet = (snippet: Snippet) => {
     this.props.onSelectSnippet && this.props.onSelectSnippet(snippet);
+    snippet.codeMirrorImport && snippet.codeMirrorImport()
     this.setState({snippet, codesandboxResult: null});
   };
 
