@@ -51,6 +51,7 @@
     "react-dom": "^17 || ^18"
   },
   "dependencies": {
+    "@uiw/react-codemirror": "^4.15.1",
     "copy-to-clipboard": "^3.3.3"
   },
   "devDependencies": {
