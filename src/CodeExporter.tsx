@@ -3,7 +3,7 @@ import copy from 'copy-to-clipboard';
 import {parse, print} from 'graphql';
 // @ts-ignore
 import CodeMirror from 'codemirror';
-import toposort from './toposort.js';
+import toposort from './toposort';
 
 import type {
   GraphQLSchema,
@@ -13,6 +13,7 @@ import type {
   OperationTypeNode,
   SelectionSetNode,
 } from 'graphql';
+import Code from './Code';
 
 function formatVariableName(name: string) {
   var uppercasePattern = /[A-Z]/g;
@@ -340,30 +341,8 @@ type CodeDisplayProps = {code: string, mode: string, theme?: string};
 class CodeDisplay extends PureComponent<CodeDisplayProps, {}> {
   _node: HTMLDivElement | null | undefined;
   editor: CodeMirror;
-  componentDidMount() {
-    this.editor = CodeMirror(this._node, {
-      value: this.props.code.trim(),
-      lineNumbers: false,
-      mode: this.props.mode,
-      readOnly: true,
-      theme: this.props.theme,
-    });
-  }
-
-  componentDidUpdate(prevProps: CodeDisplayProps) {
-    if (this.props.code !== prevProps.code) {
-      this.editor.setValue(this.props.code);
-    }
-    if (this.props.mode !== prevProps.mode) {
-      this.editor.setOption('mode', this.props.mode);
-    }
-    if (this.props.theme !== prevProps.theme) {
-      this.editor.setOption('theme', this.props.theme);
-    }
-  }
-
   render() {
-    return <div ref={ref => (this._node = ref)} />;
+    return (<Code code={this.props.code}/>);
   }
 }
 
@@ -742,7 +721,7 @@ type WrapperProps = {
   query: string,
   serverUrl: string,
   variables: string,
-  context: Object,
+  context?: Object,
   headers?: {[name: string]: string},
   hideCodeExporter: () => void,
   snippets: Array<Snippet>,
