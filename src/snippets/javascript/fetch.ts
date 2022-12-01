@@ -6,8 +6,6 @@ import {
   addLeftWhitespace,
 } from '../../utils/index';
 
-import 'codemirror';
-
 import type {Snippet, OperationData} from '../../index';
 
 const snippetOptions = [
@@ -213,6 +211,8 @@ start${capitalizeFirstLetter(
 const snippet: Snippet = {
   language: 'JavaScript',
   codeMirrorMode: 'javascript',
+  // @ts-ignore
+  codeMirrorImport: () => import('codemirror/mode/javascript/javascript'),
   name: 'fetch',
   options: snippetOptions,
   generate: opts => {

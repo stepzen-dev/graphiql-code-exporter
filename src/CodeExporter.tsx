@@ -1,9 +1,7 @@
 import {Component, PropsWithChildren, PureComponent, ReactNode, MouseEvent, ErrorInfo} from 'react';
 import copy from 'copy-to-clipboard';
 import {parse, print} from 'graphql';
-// @ts-ignore
-import CodeMirror from 'codemirror';
-import toposort from './toposort.js';
+import toposort from './toposort';
 
 import type {
   GraphQLSchema,
@@ -93,6 +91,7 @@ export type Snippet = {
   options: Options,
   language: string,
   codeMirrorMode: string,
+  codeMirrorImport?: () => Promise<void>,
   name: string,
   generate: (options: GenerateOptions) => string,
   generateCodesandboxFiles?: (options: GenerateOptions) => CodesandboxFiles,
@@ -339,14 +338,19 @@ type CodeDisplayProps = {code: string, mode: string, theme?: string};
 
 class CodeDisplay extends PureComponent<CodeDisplayProps, {}> {
   _node: HTMLDivElement | null | undefined;
-  editor: CodeMirror;
+  editor: any;
+
   componentDidMount() {
-    this.editor = CodeMirror(this._node, {
-      value: this.props.code.trim(),
-      lineNumbers: false,
-      mode: this.props.mode,
-      readOnly: true,
-      theme: this.props.theme,
+    // @ts-ignore
+    import('codemirror').then(module => {
+      const CodeMirror = module.default
+      this.editor = CodeMirror(this._node, {
+        value: this.props.code.trim(),
+        lineNumbers: false,
+        mode: this.props.mode,
+        readOnly: true,
+        theme: this.props.theme,
+      });
     });
   }
 
@@ -408,6 +412,7 @@ class CodeExporter extends Component<Props, State> {
 
   setSnippet = (snippet: Snippet) => {
     this.props.onSelectSnippet && this.props.onSelectSnippet(snippet);
+    snippet.codeMirrorImport && snippet.codeMirrorImport()
     this.setState({snippet, codesandboxResult: null});
   };
 
@@ -742,7 +747,7 @@ type WrapperProps = {
   query: string,
   serverUrl: string,
   variables: string,
-  context: Object,
+  context?: Object,
   headers?: {[name: string]: string},
   hideCodeExporter: () => void,
   snippets: Array<Snippet>,
