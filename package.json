@@ -19,13 +19,6 @@
     "release": "npm run build && npm publish",
     "test": "jest"
   },
-  "prettier": {
-    "singleQuote": true,
-    "trailingComma": "all",
-    "bracketSpacing": false,
-    "jsxBracketSameLine": true,
-    "printWidth": 80
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/stepzen-dev/graphiql-code-exporter.git"
