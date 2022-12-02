@@ -1,5 +1,5 @@
 {
-  "name": "graphiql-code-exporter",
+  "name": "@stepzen/graphiql-code-exporter",
   "version": "4.0.0",
   "description": "Export working code snippets from GraphiQL queries",
   "main": "dist/cjs/index.js",
@@ -28,10 +28,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/OneGraph/graphiql-code-exporter.git"
+    "url": "git+https://github.com/stepzen-dev/graphiql-code-exporter.git"
   },
   "keywords": [
-    "onegraph",
     "graphql",
     "graphiql",
     "tools",
@@ -41,9 +40,9 @@
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/OneGraph/graphiql-code-exporter/issues"
+    "url": "https://github.com/stepzen-dev/graphiql-code-exporter/issues"
   },
-  "homepage": "https://github.com/OneGraph/graphiql-code-exporter#readme",
+  "homepage": "https://github.com/stepzen-dev/graphiql-code-exporter#readme",
   "peerDependencies": {
     "codemirror": "^5",
     "graphql": "^16",
