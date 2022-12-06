@@ -37,12 +37,13 @@
   },
   "homepage": "https://github.com/stepzen-dev/graphiql-code-exporter#readme",
   "peerDependencies": {
-    "codemirror": "^5",
     "graphql": "^16",
     "react": "^17 || ^18",
     "react-dom": "^17 || ^18"
   },
   "dependencies": {
+    "@codemirror/lang-javascript": "^6.1.1",
+    "@uiw/react-codemirror": "^4.17.1",
     "copy-to-clipboard": "^3.3.3"
   },
   "devDependencies": {
@@ -54,7 +55,6 @@
     "@types/jest": "^29.2.3",
     "@types/react": "^18.0.25",
     "babel-jest": "^29.3.1",
-    "codemirror": "^5.65.3",
     "cross-env": "^5.2.1",
     "graphql": "^16.6.0",
     "jest": "^29.3.1",
