@@ -1,5 +1,7 @@
-import {Component, PropsWithChildren, PureComponent, ReactNode, MouseEvent, ErrorInfo} from 'react';
+import {Component, PropsWithChildren, ReactNode, MouseEvent, ErrorInfo} from 'react';
+import CodeMirror from '@uiw/react-codemirror';
 import copy from 'copy-to-clipboard';
+import { javascript } from '@codemirror/lang-javascript';
 import {parse, print} from 'graphql';
 import toposort from './toposort';
 
@@ -336,39 +338,14 @@ export class ToolbarMenu extends Component<
 
 type CodeDisplayProps = {code: string, mode: string, theme?: string};
 
-class CodeDisplay extends PureComponent<CodeDisplayProps, {}> {
-  _node: HTMLDivElement | null | undefined;
-  editor: any;
-
-  componentDidMount() {
-    // @ts-ignore
-    import('codemirror').then(module => {
-      const CodeMirror = module.default
-      this.editor = CodeMirror(this._node, {
-        value: this.props.code.trim(),
-        lineNumbers: false,
-        mode: this.props.mode,
-        readOnly: true,
-        theme: this.props.theme,
-      });
-    });
-  }
-
-  componentDidUpdate(prevProps: CodeDisplayProps) {
-    if (this.props.code !== prevProps.code) {
-      this.editor.setValue(this.props.code);
-    }
-    if (this.props.mode !== prevProps.mode) {
-      this.editor.setOption('mode', this.props.mode);
-    }
-    if (this.props.theme !== prevProps.theme) {
-      this.editor.setOption('theme', this.props.theme);
-    }
-  }
-
-  render() {
-    return <div ref={ref => (this._node = ref)} />;
-  }
+function CodeDisplay(props: CodeDisplayProps) {
+  return (
+    <CodeMirror
+      value={props.code}
+      extensions={[javascript({ jsx: true })]}
+      className="graphiql-code-exporter"
+    />
+  );
 }
 
 type Props = {
